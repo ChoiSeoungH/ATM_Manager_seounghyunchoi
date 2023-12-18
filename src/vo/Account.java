@@ -1,4 +1,4 @@
-package src;
+package src.vo;
 
 public class Account {
   private String clientId;

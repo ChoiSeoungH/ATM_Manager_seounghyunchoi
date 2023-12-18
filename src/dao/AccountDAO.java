@@ -1,4 +1,10 @@
-package src;
+package src.dao;
+
+import src.Utils.Util;
+import src.vo.Account;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class AccountDAO {
   private Account[] accList;
@@ -47,11 +53,11 @@ public class AccountDAO {
     }
     if (cnt == 3) {
       System.out.println("더이상 계좌를 만들수 없습니다.");
+      return;
     }
 
     String accNo = Util.getValue("가입할 계좌번호 >> ");
     if (!checkAccountNo(accNo)) {
-      System.out.println(accList[0].getAccNumber() + "형태로 입력해주세요");
       return;
     }
     int delIdx = findAccountNo(accNo);
@@ -70,21 +76,19 @@ public class AccountDAO {
 
   private boolean checkAccountNo(String accNo) {
     if (accNo.length() != accList[0].getAccNumber().length()) {
+      System.out.println("틀린 계좌번호");
       return false;
     }
-    int[] correctNum = {0, 1, 2, 3, 5, 6, 7, 8, 10, 11, 12, 13};
-    int[] correctDeLim = {4, 9};
-    for (int i : correctNum) {
-      if (accNo.charAt(i) < '0' || accNo.charAt(i) > '9') {
-        return false;
-      }
+    String accPattern ="^\\d{4}-\\d{4}-\\d{4}$";
+    Pattern p = Pattern.compile(accPattern);
+    Matcher m = p.matcher(accNo);
+    if (!m.matches()) {
+      System.out.println("틀린 계좌번호");
+      return false;
     }
-    for (int i : correctDeLim) {
-      if (accNo.charAt(i) != '-') {
-        return false;
-      }
-    }
+    System.out.println("올바른 계좌번호");
     return true;
+
   }
 
   public void deleteAccount(String log) {

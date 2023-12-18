@@ -1,4 +1,8 @@
-package src;
+package src.dao;
+
+import src.Utils.Util;
+import src.vo.Account;
+import src.vo.Client;
 
 public class ClientDAO {
   private Client[] clientList;

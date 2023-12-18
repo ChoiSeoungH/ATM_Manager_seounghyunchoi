@@ -1,4 +1,4 @@
-package src;
+package src.Controller;
 //[1]관리자 [2]사용자 [0]종료
 
 //관리자
@@ -23,6 +23,10 @@ package src;
 // 이체 : 이체할 계좌랑 이체받을 계좌 일치 불가
 
 // 탈퇴 : 패스워드 다시 입력 -> 탈퇴 가능
+
+import src.Utils.Util;
+import src.dao.AccountDAO;
+import src.dao.ClientDAO;
 
 // 마이페이지 : 내계좌(+잔고) 목록 확인
 public class BankController {

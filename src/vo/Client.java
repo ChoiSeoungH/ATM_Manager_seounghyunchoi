@@ -1,4 +1,4 @@
-package src;
+package src.vo;
 
 public class Client {
   private int clientNo;

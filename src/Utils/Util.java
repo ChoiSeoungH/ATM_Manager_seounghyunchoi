@@ -1,4 +1,7 @@
-package src;
+package src.Utils;
+
+import src.dao.AccountDAO;
+import src.dao.ClientDAO;
 
 import java.io.*;
 import java.util.Scanner;
