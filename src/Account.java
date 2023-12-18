@@ -1,12 +1,28 @@
-package ATM;
+package src;
 
 public class Account {
-  String clientId;
-  String accNumber;
-  int money;
+  private String clientId;
+  private String accNumber;
+  private int money;
 
   public Account() {
 
+  }
+
+  public String getClientId() {
+    return clientId;
+  }
+
+  public String getAccNumber() {
+    return accNumber;
+  }
+
+  public int getMoney() {
+    return money;
+  }
+
+  public void setMoney(int money) {
+    this.money = money;
   }
 
   public Account(String clientId, String accNumber, int money) {
@@ -21,7 +37,7 @@ public class Account {
     return data;
   }
 
-  String saveToData() {
+  public String saveToData() {
     return "%s/%s/%d\n".formatted(clientId,accNumber,money);
   }
 }

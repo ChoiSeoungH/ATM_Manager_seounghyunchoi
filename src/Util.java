@@ -1,18 +1,28 @@
-package ATM;
+package src;
 
 import java.io.*;
 import java.util.Scanner;
 
 public class Util {
-  final String CUR_PATH = System.getProperty("user.dir") + "\\level7\\src\\ATM\\";
-  Scanner sc;
-  String filename;
+  private final static String CUR_PATH = System.getProperty("user.dir") + "\\src\\";
+  private static Scanner sc = new Scanner(System.in);
+  private static String filename;
 
   public Util() {
     sc = new Scanner(System.in);
   }
 
-  void tempData() {
+  public static void printAllData() {
+      printData("client.txt");
+      printData("account.txt");
+
+  }
+  private static void printData(String fileName) {
+    System.out.println("===================" + fileName + "===================");
+    System.out.println(loadData(fileName));
+  }
+
+  public static void tempData() {
     String userData = "1001/test01/pw1/김철수\n";
     userData += "1002/test02/pw2/이영희\n";
     userData += "1003/test03/pw3/신민수\n";
@@ -32,12 +42,12 @@ public class Util {
   }//eom
 
 
-  String getValue(String msg) {
+  public static String getValue(String msg) {
     System.out.print(msg);
     return sc.next();
   }//eom
 
-  int getValue(String msg, int start, int end) {
+  public static int getValue(String msg, int start, int end) {
     while (true) {
       System.out.print(msg);
       try {
@@ -55,7 +65,7 @@ public class Util {
     }//eow
   }//eom
 
-  void saveData(String filename, String data) {
+  private static void saveData(String filename, String data) {
     try (FileWriter fw = new FileWriter(CUR_PATH + filename)) {
       fw.write(data);
       System.out.println(filename + "저장 성공");
@@ -64,7 +74,7 @@ public class Util {
     }
   }
 
-  String loadData(String filename) {
+  private static String loadData(String filename) {
     String data = "";
     try (BufferedReader br = new BufferedReader(new FileReader(CUR_PATH + filename))) {
       String line;
@@ -81,7 +91,7 @@ public class Util {
     return data;
   }
 
-  void loadFromFile(AccountDAO accountDAO, ClientDAO clientDAO) {
+  public static void loadFromFile(AccountDAO accountDAO, ClientDAO clientDAO) {
     String clientData = loadData("client.txt");
     String accountData = loadData("account.txt");
 
@@ -90,7 +100,7 @@ public class Util {
     clientDAO.updateMaxClientNo();
   }
 
-  public void saveDataToFile(AccountDAO accountDAO, ClientDAO clientDAO) {
+  public static void saveDataToFile(AccountDAO accountDAO, ClientDAO clientDAO) {
     String accountData = accountDAO.saveAsFileData();
     String clientData = clientDAO.saveAsFileData();
     saveData("account.txt",accountData);

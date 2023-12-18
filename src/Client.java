@@ -1,10 +1,30 @@
-package ATM;
+package src;
 
 public class Client {
-  int clientNo;
-  String id;
-  String pw;
-  String name;
+  private int clientNo;
+  private String id;
+  private String pw;
+  private String name;
+
+  public int getClientNo() {
+    return clientNo;
+  }
+
+  public String getId() {
+    return id;
+  }
+
+  public String getPw() {
+    return pw;
+  }
+
+  public void setPw(String pw) {
+    this.pw = pw;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
 
   public Client(int clientNo, String id, String pw, String name) {
     this.clientNo = clientNo;
@@ -23,7 +43,7 @@ public class Client {
     return data;
   }
 
-  String saveToData() {
+  public String saveToData() {
     return "%d/%s/%s/%s\n".formatted(clientNo,id,pw,name);
   }
 }

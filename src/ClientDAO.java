@@ -1,17 +1,15 @@
-package ATM;
+package src;
 
 public class ClientDAO {
-  Client[] clientList;
-  int cnt;
-  Util u;
-  int maxNo;
+  private Client[] clientList;
+  private int cnt;
+  private int maxNo;
 
   public ClientDAO() {
-    u = new Util();
   }
 
-  String login() {
-    String id = u.getValue("id >> ");
+  public String login() {
+    String id = Util.getValue("id >> ");
     int idx = findClientId(id);
     if (idx==-1) {
       System.out.println("id가 존재하지 않습니다");
@@ -19,16 +17,16 @@ public class ClientDAO {
     }
     return checkPw(idx)? id:null;
   }
-  boolean checkPw(int idx){
-    String pw = u.getValue("pw >> ");
-    if (!clientList[idx].pw.equals(pw)) {
+  private boolean checkPw(int idx){
+    String pw = Util.getValue("pw >> ");
+    if (!clientList[idx].getPw().equals(pw)) {
       System.out.println("pw가 일치하지 않습니다.");
       return false;
     }
     return true;
   }
 
-  void addClientFromData(String clientData) {
+  public void addClientFromData(String clientData) {
     String[] temp = clientData.split("\n");
     cnt = temp.length;
     clientList = new Client[cnt];
@@ -39,12 +37,12 @@ public class ClientDAO {
     }
   }
 
-  void updateMaxClientNo() {
+  public void updateMaxClientNo() {
     if(cnt == 0) return;
     int maxNo = 0;
     for(Client c : clientList) {
-      if(maxNo < c.clientNo) {
-        maxNo = c.clientNo;
+      if(maxNo < c.getClientNo()) {
+        maxNo = c.getClientNo();
       }
     }
     this.maxNo = maxNo;
@@ -58,9 +56,9 @@ public class ClientDAO {
     for (Client c : clientList) {
       System.out.println(c);
       System.out.print("[");
-      for (Account a : accountDAO.accList) {
-        if (c.id.equals(a.clientId)) {
-          System.out.print(a.accNumber+" "+a.money+"원 ");
+      for (Account a : accountDAO.getAccList()) {
+        if (c.getId().equals(a.getClientId())) {
+          System.out.print(a.getAccNumber()+" "+a.getMoney()+"원 ");
         }
       }
       System.out.print("]\n\n");
@@ -69,30 +67,30 @@ public class ClientDAO {
   }//eom
 
   public void updateClient() {
-    String id = u.getValue("id >> ");
+    String id = Util.getValue("id >> ");
     int idx = findClientId(id);
     if (idx == -1) {
       System.out.println("id가 존재하지 않습니다");
       return;
     }
     System.out.println(clientList[idx]);
-    String pw = u.getValue("pw >> ");
-    String name = u.getValue("name >> ");
-    clientList[idx].pw = pw;
-    clientList[idx].name = name;
+    String pw = Util.getValue("pw >> ");
+    String name = Util.getValue("name >> ");
+    clientList[idx].setPw(pw);
+    clientList[idx].setName(name);
   }
 
-  int findClientId(String id){
+  private int findClientId(String id){
     for (int i = 0; i < cnt; i++) {
-      if (id.equals(clientList[i].id)) {
+      if (id.equals(clientList[i].getId())) {
         return i;
       }
     }
     return -1;
   }
 
-  void deleteClient(AccountDAO accountDAO) {
-    String id = u.getValue("id >> ");
+  public void deleteClient(AccountDAO accountDAO) {
+    String id = Util.getValue("id >> ");
     int delIdx = findClientId(id);
     if (delIdx == -1) return;
 
@@ -109,7 +107,7 @@ public class ClientDAO {
     updateMaxClientNo();
   }
 
-  String deleteClient(String log, AccountDAO accountDAO) {
+  public String deleteClient(String log, AccountDAO accountDAO) {
     int delIdx = findClientId(log);
     if(!checkPw(delIdx)){
       return log;
@@ -128,7 +126,7 @@ public class ClientDAO {
     return null;
   }
 
-  String saveAsFileData() {
+  public String saveAsFileData() {
     if (cnt == 0) return "";
     String data = "";
     for (Client c : clientList) {
@@ -138,13 +136,13 @@ public class ClientDAO {
   }
 
   public void AddClient() {
-    String id = u.getValue("id >> ");
+    String id = Util.getValue("id >> ");
     if (findClientId(id)!=-1) {
       System.out.println("id중복");
       return;
     }
-    String pw = u.getValue("pw >> ");
-    String name = u.getValue("name >> ");
+    String pw = Util.getValue("pw >> ");
+    String name = Util.getValue("name >> ");
     Client[] temp = clientList;
     clientList = new Client[cnt + 1];
     for (int i = 0; i < cnt; i++) {

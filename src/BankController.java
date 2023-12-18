@@ -1,4 +1,4 @@
-package ATM;
+package src;
 //[1]관리자 [2]사용자 [0]종료
 
 //관리자
@@ -27,27 +27,25 @@ package ATM;
 // 마이페이지 : 내계좌(+잔고) 목록 확인
 public class BankController {
 
-  final String bankName = "우리은행";
-  Util u;
-  AccountDAO accountDAO;
-  ClientDAO clientDAO;
-  String log;
+  private final String bankName = "우리은행";
+  private AccountDAO accountDAO;
+  private ClientDAO clientDAO;
+  private String log;
 
   public BankController() {
-    u = new Util();
     accountDAO = new AccountDAO();
     clientDAO = new ClientDAO();
-    u.tempData();
-    u.loadFromFile(accountDAO, clientDAO);
+    Util.tempData();
+    Util.loadFromFile(accountDAO, clientDAO);
 
   }
 
-  void run() {
+  public void run() {
 
     while (true) {
       System.out.println("============" + bankName + "============");
       ShowMenu("[1]관리자 [2]사용자 [0]종료");
-      int menu = u.getValue("메뉴 >> ", 0, 2);
+      int menu = Util.getValue("메뉴 >> ", 0, 2);
       switch (menu) {
         case 0:
           System.out.println("종료");
@@ -56,7 +54,7 @@ public class BankController {
           outer1:
           while (true) {
             ShowMenu("[1]회원목록 [2]회원 수정 [3]회원 삭제 [4]데이터 저장 [5]데이터 불러오기 [6]전체계좌 [0]뒤로가기");
-            menu = u.getValue("메뉴 >> ", 0, 6);
+            menu = Util.getValue("메뉴 >> ", 0, 6);
             switch (menu) {
               case 0:
                 System.out.println("뒤로가기");
@@ -71,13 +69,13 @@ public class BankController {
                 clientDAO.deleteClient(accountDAO);
                 break;
               case 4: //데이터 저장
-                u.saveDataToFile(accountDAO, clientDAO);
+                Util.saveDataToFile(accountDAO, clientDAO);
                 break;
               case 5: //데이터 불러오기
-                printAllData();
+                Util.printAllData();
                 break;
               case 6: //전체
-                accountDAO.printAllAccount(accountDAO.accList);
+                accountDAO.printAllAccount(accountDAO.getAccList());
                 break;
             }
 
@@ -87,7 +85,7 @@ public class BankController {
           outer2:
           while (true) {
             ShowMenu("[1]회원가입 [2]로그인 [0]뒤로가기");
-            menu = u.getValue("메뉴 >> ", 0, 2);
+            menu = Util.getValue("메뉴 >> ", 0, 2);
             switch (menu) {
               case 0:
                 System.out.println("뒤로가기");
@@ -103,7 +101,7 @@ public class BankController {
                 outer3:
                 while (log != null) {
                   ShowMenu("[1]계좌추가 [2]계좌삭제 [3]입금 [4]출금 [5]이체 [6]탈퇴 [7]마이페이지 [0]로그아웃");
-                  menu = u.getValue("메뉴 >> ", 0, 7);
+                  menu = Util.getValue("메뉴 >> ", 0, 7);
                   switch (menu) {
                     case 0:
                       log = null;
@@ -143,15 +141,6 @@ public class BankController {
 
   }//eom
 
-  private void printAllData() {
-    printData("client.txt");
-    printData("account.txt");
-  }
-
-  void printData(String fileName) {
-    System.out.println("===================" + fileName + "===================");
-    System.out.println(u.loadData(fileName));
-  }
 
   private void ShowMenu(String msg) {
     System.out.println(msg);
