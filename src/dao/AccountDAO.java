@@ -79,7 +79,7 @@ public class AccountDAO {
       System.out.println("틀린 계좌번호");
       return false;
     }
-    String accPattern ="^\\d{4}-\\d{4}-\\d{4}$";
+    String accPattern = "^\\d{4}-\\d{4}-\\d{4}$";
     Pattern p = Pattern.compile(accPattern);
     Matcher m = p.matcher(accNo);
     if (!m.matches()) {
@@ -94,7 +94,7 @@ public class AccountDAO {
   public void deleteAccount(String log) {
     printMyAccount(log);
     String accNo = Util.getValue("삭제할 계좌번호 >> ");
-    int delIdx = findAccountNo(accNo,log);
+    int delIdx = findAccountNo(accNo, log);
     if (delIdx == -1) {
       System.out.println("일치하는 계좌가 없습니다");
       return;
@@ -149,7 +149,7 @@ public class AccountDAO {
     return -1;
   }
 
-  private int findAccountNo(String accNo,String log) {
+  private int findAccountNo(String accNo, String log) {
     for (int i = 0; i < accList.length; i++) {
       if (accList[i].getAccNumber().equals(accNo) && accList[i].getClientId().equals(log)) {
         return i;
@@ -165,7 +165,7 @@ public class AccountDAO {
     }
 
     String accNo = Util.getValue("입금할 계좌번호 >> ");
-    int idx = findAccountNo(accNo,log);
+    int idx = findAccountNo(accNo, log);
     if (idx == -1) {
       System.out.println("계좌번호가 맞지않습니다.");
       return;
@@ -173,7 +173,7 @@ public class AccountDAO {
 
 
     int money = Util.getValue("100 ~ 10000000원 입금가능 >> ", 100, 10000000);
-    accList[idx].setMoney(accList[idx].getMoney()+ money);
+    accList[idx].setMoney(accList[idx].getMoney() + money);
     System.out.println("입금완료");
     System.out.println(accList[idx]);
   }
@@ -185,14 +185,14 @@ public class AccountDAO {
     }
 
     String accNo = Util.getValue("출금할 계좌번호 >> ");
-    int idx = findAccountNo(accNo,log);
+    int idx = findAccountNo(accNo, log);
     if (idx == -1) {
       System.out.println("계좌번호가 맞지않습니다.");
       return;
     }
 
     int money = Util.getValue("100 ~ %d원 출금가능 >> ".formatted(accList[idx].getMoney()), 100, accList[idx].getMoney());
-    accList[idx].setMoney(accList[idx].getMoney()+ money);
+    accList[idx].setMoney(accList[idx].getMoney() + money);
     System.out.println(accList[idx]);
     System.out.println("출금완료");
   }
@@ -203,7 +203,7 @@ public class AccountDAO {
       return;
     }
     String fromNo = Util.getValue("이체할 계좌번호 >> ");
-    int fromIdx = findAccountNo(fromNo,log);
+    int fromIdx = findAccountNo(fromNo, log);
     if (fromIdx == -1) {
       System.out.println("계좌번호가 맞지않습니다.");
       return;
@@ -223,8 +223,8 @@ public class AccountDAO {
       return;
     }
     int money = Util.getValue("100 ~ %d원 출금가능 >> ".formatted(accList[fromIdx].getMoney()), 100, accList[fromIdx].getMoney());
-    accList[toIdx].setMoney(accList[toIdx].getMoney()+ money);
-    accList[fromIdx].setMoney(accList[fromIdx].getMoney()- money);
+    accList[toIdx].setMoney(accList[toIdx].getMoney() + money);
+    accList[fromIdx].setMoney(accList[fromIdx].getMoney() - money);
     System.out.println(accList[fromIdx]);
     System.out.println(accList[toIdx]);
     System.out.println("이체완료");

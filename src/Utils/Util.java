@@ -16,10 +16,11 @@ public class Util {
   }
 
   public static void printAllData() {
-      printData("client.txt");
-      printData("account.txt");
+    printData("client.txt");
+    printData("account.txt");
 
   }
+
   private static void printData(String fileName) {
     System.out.println("===================" + fileName + "===================");
     System.out.println(loadData(fileName));
@@ -56,7 +57,7 @@ public class Util {
       try {
         int val = sc.nextInt();
         if (val < start || val > end) {
-          System.out.printf("%d ~ %d 사이의 값 입력 %n",start,end);
+          System.out.printf("%d ~ %d 사이의 값 입력 %n", start, end);
           continue;
         }
         return val;
@@ -106,7 +107,7 @@ public class Util {
   public static void saveDataToFile(AccountDAO accountDAO, ClientDAO clientDAO) {
     String accountData = accountDAO.saveAsFileData();
     String clientData = clientDAO.saveAsFileData();
-    saveData("account.txt",accountData);
-    saveData("client.txt",clientData);
+    saveData("account.txt", accountData);
+    saveData("client.txt", clientData);
   }
 }

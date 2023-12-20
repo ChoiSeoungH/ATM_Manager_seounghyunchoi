@@ -9,6 +9,12 @@ public class Account {
 
   }
 
+  public Account(String clientId, String accNumber, int money) {
+    this.clientId = clientId;
+    this.accNumber = accNumber;
+    this.money = money;
+  }
+
   public String getClientId() {
     return clientId;
   }
@@ -25,12 +31,6 @@ public class Account {
     this.money = money;
   }
 
-  public Account(String clientId, String accNumber, int money) {
-    this.clientId = clientId;
-    this.accNumber = accNumber;
-    this.money = money;
-  }
-
   @Override
   public String toString() {
     String data = clientId + "\t" + accNumber + "\t" + money;
@@ -38,6 +38,6 @@ public class Account {
   }
 
   public String saveToData() {
-    return "%s/%s/%d\n".formatted(clientId,accNumber,money);
+    return "%s/%s/%d\n".formatted(clientId, accNumber, money);
   }
 }

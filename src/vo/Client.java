@@ -6,6 +6,17 @@ public class Client {
   private String pw;
   private String name;
 
+  public Client(int clientNo, String id, String pw, String name) {
+    this.clientNo = clientNo;
+    this.id = id;
+    this.pw = pw;
+    this.name = name;
+  }
+
+  public Client() {
+
+  }
+
   public int getClientNo() {
     return clientNo;
   }
@@ -26,17 +37,6 @@ public class Client {
     this.name = name;
   }
 
-  public Client(int clientNo, String id, String pw, String name) {
-    this.clientNo = clientNo;
-    this.id = id;
-    this.pw = pw;
-    this.name = name;
-  }
-
-  public Client() {
-
-  }
-
   @Override
   public String toString() {
     String data = clientNo + "\t" + id + "\t" + pw + "\t" + name;
@@ -44,6 +44,6 @@ public class Client {
   }
 
   public String saveToData() {
-    return "%d/%s/%s/%s\n".formatted(clientNo,id,pw,name);
+    return "%d/%s/%s/%s\n".formatted(clientNo, id, pw, name);
   }
 }

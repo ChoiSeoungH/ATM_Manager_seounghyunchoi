@@ -15,13 +15,14 @@ public class ClientDAO {
   public String login() {
     String id = Util.getValue("id >> ");
     int idx = findClientId(id);
-    if (idx==-1) {
+    if (idx == -1) {
       System.out.println("id가 존재하지 않습니다");
       return null;
     }
-    return checkPw(idx)? id:null;
+    return checkPw(idx) ? id : null;
   }
-  private boolean checkPw(int idx){
+
+  private boolean checkPw(int idx) {
     String pw = Util.getValue("pw >> ");
     if (!clientList[idx].getPw().equals(pw)) {
       System.out.println("pw가 일치하지 않습니다.");
@@ -34,7 +35,7 @@ public class ClientDAO {
     String[] temp = clientData.split("\n");
     cnt = temp.length;
     clientList = new Client[cnt];
-    int idx=0;
+    int idx = 0;
     for (String t : temp) {
       String[] info = t.split("/");
       clientList[idx++] = new Client(Integer.parseInt(info[0]), info[1], info[2], info[3]);
@@ -42,10 +43,10 @@ public class ClientDAO {
   }
 
   public void updateMaxClientNo() {
-    if(cnt == 0) return;
+    if (cnt == 0) return;
     int maxNo = 0;
-    for(Client c : clientList) {
-      if(maxNo < c.getClientNo()) {
+    for (Client c : clientList) {
+      if (maxNo < c.getClientNo()) {
         maxNo = c.getClientNo();
       }
     }
@@ -62,7 +63,7 @@ public class ClientDAO {
       System.out.print("[");
       for (Account a : accountDAO.getAccList()) {
         if (c.getId().equals(a.getClientId())) {
-          System.out.print(a.getAccNumber()+" "+a.getMoney()+"원 ");
+          System.out.print(a.getAccNumber() + " " + a.getMoney() + "원 ");
         }
       }
       System.out.print("]\n\n");
@@ -84,7 +85,7 @@ public class ClientDAO {
     clientList[idx].setName(name);
   }
 
-  private int findClientId(String id){
+  private int findClientId(String id) {
     for (int i = 0; i < cnt; i++) {
       if (id.equals(clientList[i].getId())) {
         return i;
@@ -100,9 +101,9 @@ public class ClientDAO {
 
     Client[] temp = clientList;
     clientList = new Client[cnt - 1];
-    int idx=0;
+    int idx = 0;
     for (int i = 0; i < cnt; i++) {
-      if (i!=delIdx) {
+      if (i != delIdx) {
         clientList[idx++] = temp[i];
       }
     }
@@ -113,14 +114,14 @@ public class ClientDAO {
 
   public String deleteClient(String log, AccountDAO accountDAO) {
     int delIdx = findClientId(log);
-    if(!checkPw(delIdx)){
+    if (!checkPw(delIdx)) {
       return log;
     }
     Client[] temp = clientList;
     clientList = new Client[cnt - 1];
-    int idx=0;
+    int idx = 0;
     for (int i = 0; i < cnt; i++) {
-      if (i!=delIdx) {
+      if (i != delIdx) {
         clientList[idx++] = temp[i];
       }
     }
@@ -141,7 +142,7 @@ public class ClientDAO {
 
   public void AddClient() {
     String id = Util.getValue("id >> ");
-    if (findClientId(id)!=-1) {
+    if (findClientId(id) != -1) {
       System.out.println("id중복");
       return;
     }
